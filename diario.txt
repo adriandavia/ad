@@ -1,0 +1,26 @@
+﻿2016/09/13 
+* Synaptic:
+   * monodevelop 
+   * monodevelop-database 
+   * monodevelop-nunit 
+   * monodevelop-versioncontrol
+   * monodoc-browser 
+   * monodoc-gtk2.0-manual 
+   * monodoc-mysql-manual
+   * git 
+
+
+* Bitnami → Lamp → https://bitnami.com/stack/lamp → 
+→  (bitnami-lampstack-5.6.25.0-linux-x64-installer.run)
+   * Propiedades → Permisos → Permitir ejecutar el archivo como programa → Cerrar → Click derecho → Ejecutar
+      * Select component → desmarcar todo 
+      * Create MYSQL ‘root’ Account → password: sistemas 
+      * Deploy lampstack to the Cloud in One Click → desmarcar 
+
+
+2016/09/14
+* Configurar git:
+   * git clone https://github.com/adriandavia/ad.git
+   * git config --global user.name adriandavia
+   * git config --global user.email dam.adavia@institutoserpis.org
+   * git config --global push.default simple
