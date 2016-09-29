@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdbPrueba2", "PdbPrueba2.csproj", "{1C52FF87-2BB5-4CAF-9CE7-A6BB8C414618}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCategoria", "PCategoria.csproj", "{1C52FF87-2BB5-4CAF-9CE7-A6BB8C414618}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +15,6 @@ Global
 		{1C52FF87-2BB5-4CAF-9CE7-A6BB8C414618}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = PdbPrueba2.csproj
+		StartupItem = PCategoria.csproj
 	EndGlobalSection
 EndGlobal

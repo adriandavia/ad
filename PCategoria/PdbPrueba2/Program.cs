@@ -14,7 +14,7 @@ namespace PdbPrueba2
 
 		public static void Main (string[] args)
 		{
-			dbConnection = new MySqlConnection ("Database = dbprueba, User Id= root, Password= sistemas");
+			dbConnection = new MySqlConnection ("Database=dbprueba;User Id=root;Password=sistemas");
 			dbConnection.Open ();
 			while (true) {
 				Option option = getOption ();
@@ -23,6 +23,8 @@ namespace PdbPrueba2
 					dbConnection.Close ();
 					return;
 				case Option.NUEVO:
+					/*INICIALIZACIÓN PEREZOSA --> if (dbConnection.State != ConnectionState.Open) 
+						dbConnection.Open ();*/
 					nuevo ();
 					break;
 				case Option.EDITAR:
@@ -37,7 +39,7 @@ namespace PdbPrueba2
 				}
 			}
 		}
-		private static int getOption(){
+		private static Option getOption(){
 			string pattern = "^[01234]$"; //EXPRESION REGULAR
 			while (true) {
 				Console.WriteLine ("0. Salir");
@@ -45,6 +47,7 @@ namespace PdbPrueba2
 				Console.WriteLine ("2. Editar");
 				Console.WriteLine ("3. Borrar");
 				Console.WriteLine ("4. Listar");
+				Console.Write ("Opcion: ");
 				string option = Console.ReadLine ();
 				if (Regex.IsMatch (option, pattern)) {
 					return (Option)int.Parse (option);
@@ -58,8 +61,22 @@ namespace PdbPrueba2
 			IDbCommand dbCommand = dbConnection.CreateCommand ();
 			dbCommand.CommandText = INSERT_SQL;
 			addPArameter (dbCommand, "nombre", nombre);
-			dbCommand.ExecuteNonQuery ();
+			try{
+				dbCommand.ExecuteNonQuery ();
+			} catch (MySqlException ex){
+				Console.WriteLine (getUserMessage(ex));
+			}
 		}
+
+		private const int ER_DUP_ENTRY = 1062;
+		private static string getUserMessage (MySqlException ex){
+			switch (ex.Number) {
+			case ER_DUP_ENTRY:
+				return "Dato duplicado. Ese dato ya existe en la base de datos";
+			}
+			return ex.Message;
+		}
+
 		private static string readString (string label){
 			while (true) {
 				Console.Write (label);
@@ -70,10 +87,22 @@ namespace PdbPrueba2
 				Console.WriteLine ("No puede quedar vacio. Vuelve a introducir.");
 			}
 		}
-		private static string UPDATE_SQL = "update categoria set nombre = @nombre";
+
+		private static string UPDATE_SQL = "update categoria set nombre = @nombre where id = @id";
 		private static void editar(){
 			long id = readlong ("ID: ");
 			string nombre = readString ("Nombre: ");
+			IDbCommand dbCommand = dbConnection.CreateCommand ();
+			dbCommand.CommandText = UPDATE_SQL;
+			addPArameter (dbCommand, "nombre", nombre);
+			addPArameter (dbCommand, "id", id);
+			try{
+				int filas = dbCommand.ExecuteNonQuery (); //Devolvera 0 o 1
+				if (filas == 0)
+					Console.WriteLine ("Id no existente. No existe ningún registro con ese Id.");
+			}catch(MySqlException ex){
+				Console.WriteLine (getUserMessage(ex));
+			}
 		}
 
 		private static string DELETE_SQL = "delete from categoria where id = @id";
@@ -82,8 +111,11 @@ namespace PdbPrueba2
 			IDbCommand dbCommand = dbConnection.CreateCommand ();
 			dbCommand.CommandText = DELETE_SQL;
 			addPArameter (dbCommand, "id", id);
-			dbCommand.ExecuteNonQuery ();
+			int filas = dbCommand.ExecuteNonQuery (); //Devolvera 0 o 1 
+			if (filas == 0)
+				Console.WriteLine ("Id no existente. No existe ningún registro con ese Id.");
 		}
+
 		private static long readlong (String label){
 			while (true) {
 				Console.Write (label);
@@ -96,7 +128,16 @@ namespace PdbPrueba2
 			}
 		}
 
+		private static string SELECT_SQL = "select * from categoria order by id";
 		private static void listar(){
+			IDbCommand dbCommand = dbConnection.CreateCommand ();
+			dbCommand.CommandText = SELECT_SQL;
+			IDataReader dataReader = dbCommand.ExecuteReader ();
+			Console.WriteLine ("Lista: ");
+			while(dataReader.Read ()){
+				Console.WriteLine ("{0,5} id: - nombre: {1}", dataReader ["id"], dataReader ["nombre"]);
+			}
+			dataReader.Close ();
 		}
 
 		private static void addPArameter(IDbCommand dbCommand, string name, object value){
