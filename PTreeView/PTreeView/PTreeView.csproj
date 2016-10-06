@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CF1E9E1E-5E0F-4C51-B378-EC7883111214}</ProjectGuid>
+    <ProjectGuid>{4DD1323D-38B7-475E-B438-FBB93FCAD47C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>PTreeView</RootNamespace>
     <AssemblyName>PTreeView</AssemblyName>
@@ -76,9 +76,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Org.InstitutoSerpis.Ad\Org.InstitutoSerpis.Ad.csproj">
-      <Project>{F8007E21-4F40-4404-B127-B8F27F1F5B50}</Project>
-      <Name>Org.InstitutoSerpis.Ad</Name>
+    <ProjectReference Include="..\TreeViewHelper\Org.InstituoSerpis.Ad.csproj">
+      <Project>{F8910529-F7FB-4FFA-98F1-85152F1A262F}</Project>
+      <Name>Org.InstituoSerpis.Ad</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
