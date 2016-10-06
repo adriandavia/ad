@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Org.InstituoSerpis.Ad", "Org.InstituoSerpis.Ad.csproj", "{F8910529-F7FB-4FFA-98F1-85152F1A262F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8910529-F7FB-4FFA-98F1-85152F1A262F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8910529-F7FB-4FFA-98F1-85152F1A262F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8910529-F7FB-4FFA-98F1-85152F1A262F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8910529-F7FB-4FFA-98F1-85152F1A262F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Org.InstituoSerpis.Ad.csproj
+	EndGlobalSection
+EndGlobal

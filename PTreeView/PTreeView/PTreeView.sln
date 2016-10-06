@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTreeView", "PTreeView.csproj", "{4DD1323D-38B7-475E-B438-FBB93FCAD47C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E045334C-2A46-417C-9AAA-1A21874CD266}"
+	ProjectSection(SolutionItems) = preProject
+		Org.InstituoSerpis.Ad.sln = Org.InstituoSerpis.Ad.sln
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DD1323D-38B7-475E-B438-FBB93FCAD47C}.Debug|x86.ActiveCfg = Debug|x86
+		{4DD1323D-38B7-475E-B438-FBB93FCAD47C}.Debug|x86.Build.0 = Debug|x86
+		{4DD1323D-38B7-475E-B438-FBB93FCAD47C}.Release|x86.ActiveCfg = Release|x86
+		{4DD1323D-38B7-475E-B438-FBB93FCAD47C}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = PTreeView.csproj
+	EndGlobalSection
+EndGlobal

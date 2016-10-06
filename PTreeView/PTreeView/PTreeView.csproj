@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4DD1323D-38B7-475E-B438-FBB93FCAD47C}</ProjectGuid>
+    <ProjectGuid>{0034FF72-F78B-486D-803D-5728F737E6B3}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>PTreeView</RootNamespace>
     <AssemblyName>PTreeView</AssemblyName>
@@ -57,9 +57,8 @@
       <Package>gtk-sharp-2.0</Package>
     </Reference>
     <Reference Include="Mono.Posix" />
-    <Reference Include="System.Data" />
-    <Reference Include="MySql.Data">
-      <HintPath>..\..\..\..\..\..\usr\lib\cli\MySql.Data-6.4\MySql.Data.dll</HintPath>
+    <Reference Include="Org.InstitutoSerpis.Ad">
+      <HintPath>..\..\Org.InstitutoSerpis.Ad\Org.InstitutoSerpis.Ad\bin\Debug\Org.InstitutoSerpis.Ad.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -75,10 +74,4 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\TreeViewHelper\Org.InstituoSerpis.Ad.csproj">
-      <Project>{F8910529-F7FB-4FFA-98F1-85152F1A262F}</Project>
-      <Name>Org.InstituoSerpis.Ad</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
