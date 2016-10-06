@@ -9,6 +9,7 @@ public partial class MainWindow: Gtk.Window
 	{
 		Build ();
 
+		//CONFIGURAR TREEVIEW
 		pvisualizar.AppendColumn ("id", new CellRendererText (), "text", 0);
 		pvisualizar.AppendColumn ("nombre", new CellRendererText (), "text", 1);
 		pvisualizar.AppendColumn ("precio", new CellRendererText (), "text", 2);
@@ -18,11 +19,17 @@ public partial class MainWindow: Gtk.Window
 
 		pvisualizar.Model = liststore;
 
+		//CONECTAR A LA BASE DE DATOS
 		IDbConnection connect = new MySqlConnection ("Database=dbprueba;user=root;password=sistemas");
 		connect.Open ();
 		fillListStore (liststore, connect);
 
+		//AÑADIR NUEVA COLUMNA 
+		newAction.Activated += delegate {
+			PArticulo.Añadir añadir = new PArticulo.Añadir();
+	};
 	}	
+	//METODO PARA VISUALIZAR EN TREEVIEW
 	private void fillListStore (ListStore listStore, IDbConnection connect){
 		listStore.Clear ();
 		IDbCommand dbcommand = connect.CreateCommand ();
