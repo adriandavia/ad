@@ -7,6 +7,7 @@
   <import>
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/PArticulo.exe" internal="true" />
+    <widget-library name="../../../Org.InstitutoSerpis.Ad/Org.InstitutoSerpis.Ad/bin/Debug/Org.InstitutoSerpis.Ad.dll" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="412 300">
     <action-group name="Default">
@@ -26,6 +27,11 @@
         <property name="Label" translatable="yes" />
         <property name="StockId">gtk-edit</property>
       </action>
+      <action id="refreshAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-refresh</property>
+      </action>
     </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
@@ -41,8 +47,12 @@
             <property name="ShowArrow">False</property>
             <node name="toolbar2" type="Toolbar">
               <node type="Toolitem" action="newAction" />
+              <node type="Separator" />
               <node type="Toolitem" action="editAction" />
+              <node type="Separator" />
               <node type="Toolitem" action="deleteAction" />
+              <node type="Separator" />
+              <node type="Toolitem" action="refreshAction" />
             </node>
           </widget>
           <packing>
@@ -57,7 +67,7 @@
             <property name="MemberName" />
             <property name="ShadowType">In</property>
             <child>
-              <widget class="Gtk.TreeView" id="pvisualizar">
+              <widget class="Gtk.TreeView" id="treeView">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="ShowScrollbars">True</property>
@@ -70,149 +80,6 @@
           </packing>
         </child>
       </widget>
-    </child>
-  </widget>
-  <widget class="Gtk.Window" id="PArticulo.Añadir" design-size="400 224">
-    <action-group name="Default">
-      <action id="saveAction">
-        <property name="Type">Action</property>
-        <property name="Label" translatable="yes">_Guardar</property>
-        <property name="ShortLabel" translatable="yes">Guardar</property>
-        <property name="StockId">gtk-save</property>
-        <property name="Tooltip" translatable="yes">Guardar</property>
-      </action>
-      <action id="cancelAction">
-        <property name="Type">Action</property>
-        <property name="Label" translatable="yes" />
-        <property name="StockId">gtk-cancel</property>
-      </action>
-    </action-group>
-    <property name="MemberName" />
-    <property name="Title" translatable="yes">Añadir</property>
-    <property name="WindowPosition">CenterOnParent</property>
-    <child>
-      <widget class="Gtk.VBox" id="vbox1">
-        <property name="MemberName" />
-        <property name="Spacing">6</property>
-        <property name="BorderWidth">9</property>
-        <child>
-          <widget class="Gtk.Toolbar" id="toolbar1">
-            <property name="MemberName" />
-            <property name="ShowArrow">False</property>
-            <node name="toolbar1" type="Toolbar">
-              <node type="Toolitem" action="saveAction" />
-              <node type="Toolitem" action="cancelAction" />
-            </node>
-          </widget>
-          <packing>
-            <property name="Position">0</property>
-            <property name="AutoSize">True</property>
-            <property name="Expand">False</property>
-            <property name="Fill">False</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.Label" id="label1">
-            <property name="MemberName" />
-            <property name="Xalign">0</property>
-            <property name="LabelProp" translatable="yes">Nombre: </property>
-          </widget>
-          <packing>
-            <property name="Position">1</property>
-            <property name="AutoSize">True</property>
-            <property name="Expand">False</property>
-            <property name="Fill">False</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.Entry" id="entry1">
-            <property name="MemberName" />
-            <property name="CanFocus">True</property>
-            <property name="IsEditable">True</property>
-            <property name="InvisibleChar">•</property>
-          </widget>
-          <packing>
-            <property name="Position">2</property>
-            <property name="AutoSize">True</property>
-            <property name="Expand">False</property>
-            <property name="Fill">False</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.Entry" id="entry3">
-            <property name="MemberName" />
-            <property name="CanFocus">True</property>
-            <property name="IsEditable">True</property>
-            <property name="InvisibleChar">•</property>
-          </widget>
-          <packing>
-            <property name="PackType">End</property>
-            <property name="Position">3</property>
-            <property name="AutoSize">True</property>
-            <property name="Expand">False</property>
-            <property name="Fill">False</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.Label" id="label3">
-            <property name="MemberName" />
-            <property name="Xalign">0</property>
-            <property name="LabelProp" translatable="yes">Categoria: </property>
-          </widget>
-          <packing>
-            <property name="PackType">End</property>
-            <property name="Position">4</property>
-            <property name="AutoSize">True</property>
-            <property name="Expand">False</property>
-            <property name="Fill">False</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.Entry" id="entry2">
-            <property name="MemberName" />
-            <property name="CanFocus">True</property>
-            <property name="IsEditable">True</property>
-            <property name="InvisibleChar">•</property>
-          </widget>
-          <packing>
-            <property name="PackType">End</property>
-            <property name="Position">5</property>
-            <property name="AutoSize">True</property>
-            <property name="Expand">False</property>
-            <property name="Fill">False</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="Gtk.Label" id="label2">
-            <property name="MemberName" />
-            <property name="Xalign">0</property>
-            <property name="LabelProp" translatable="yes">Precio: </property>
-          </widget>
-          <packing>
-            <property name="PackType">End</property>
-            <property name="Position">6</property>
-            <property name="AutoSize">True</property>
-            <property name="Expand">False</property>
-            <property name="Fill">False</property>
-          </packing>
-        </child>
-      </widget>
-    </child>
-  </widget>
-  <widget class="Gtk.Window" id="PArticulo.Añadir" design-size="400 300">
-    <property name="MemberName" />
-    <property name="Title" translatable="yes">Añadir</property>
-    <property name="WindowPosition">CenterOnParent</property>
-    <child>
-      <placeholder />
-    </child>
-  </widget>
-  <widget class="Gtk.Window" id="PArticulo.DbHelper" design-size="400 300">
-    <property name="MemberName" />
-    <property name="Title" translatable="yes">DbHelper</property>
-    <property name="WindowPosition">CenterOnParent</property>
-    <child>
-      <placeholder />
     </child>
   </widget>
 </stetic-interface>

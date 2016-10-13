@@ -1,48 +1,45 @@
-using System;
 using Gtk;
-using System.Data;
 using MySql.Data.MySqlClient;
+using System;
+using System.Data;
+using System.Collections.Generic;
+
+using Org.InstitutoSerpis.Ad;
+using PArticulo;
 
 public partial class MainWindow: Gtk.Window
 {	
+	private IDbConnection dbConnection; //Alcance para toda la clase 
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{
+
 		Build ();
-
-		//CONFIGURAR TREEVIEW
-		pvisualizar.AppendColumn ("id", new CellRendererText (), "text", 0);
-		pvisualizar.AppendColumn ("nombre", new CellRendererText (), "text", 1);
-		pvisualizar.AppendColumn ("precio", new CellRendererText (), "text", 2);
-		pvisualizar.AppendColumn ("categoria", new CellRendererText (), "text", 3);
-
-		ListStore liststore = new ListStore (typeof(long), typeof(string), typeof(string), typeof(long));
-
-		pvisualizar.Model = liststore;
-
-		//CONECTAR A LA BASE DE DATOS
-		IDbConnection connect = new MySqlConnection ("Database=dbprueba;user=root;password=sistemas");
-		connect.Open ();
-		fillListStore (liststore, connect);
-
-		//AÑADIR NUEVA COLUMNA 
-		newAction.Activated += delegate {
-			PArticulo.Añadir añadir = new PArticulo.Añadir();
-	};
-	}	
-	//METODO PARA VISUALIZAR EN TREEVIEW
-	private void fillListStore (ListStore listStore, IDbConnection connect){
-		listStore.Clear ();
-		IDbCommand dbcommand = connect.CreateCommand ();
-		dbcommand.CommandText = "select * from articulo order by id";
-		IDataReader dataReader = dbcommand.ExecuteReader ();
-		while (dataReader.Read()) {
-			listStore.AppendValues (dataReader ["id"], dataReader ["nombre"],""+dataReader ["precio"], dataReader ["categoria"]);
+		dbConnection = new MySqlConnection (
+			"database = dbprueba; user id = root; password = sistemas"
+		);
+		dbConnection.Open ();
+		List <Articulo> list = new List <Articulo> ();
+		//Rellenar TreeView
+		string selectSQL = "select * from articulo";
+		IDbCommand dbCommand = dbConnection.CreateCommand ();
+		dbCommand.CommandText = selectSQL;
+		IDataReader dataReader = dbCommand.ExecuteReader ();
+		while (dataReader.Read ()) {
+			long id = (long) dataReader ["id"];
+			string nombre = (string) dataReader ["nombre"];
+			decimal? precio = dataReader ["precio"] is DBNull ? null : (decimal?) dataReader  ["precio"];
+			long? categoria = dataReader ["categoria"] is DBNull ? null : (long?) dataReader ["categoria"];
+			Articulo articulo = new Articulo (id, nombre, precio, categoria);
+			list.Add (articulo);
 		}
 		dataReader.Close ();
-	}
+
+		TreeViewHelper.Fill (treeView, list);
+	}	
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 	{
+		dbConnection.Close ();
 		Application.Quit ();
 		a.RetVal = true;
 	}
