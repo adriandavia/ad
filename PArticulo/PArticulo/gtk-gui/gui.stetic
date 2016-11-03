@@ -26,11 +26,6 @@
         <property name="Label" translatable="yes">Archivo</property>
         <property name="ShortLabel" translatable="yes">Archivo</property>
       </action>
-      <action id="Action">
-        <property name="Type">Action</property>
-        <property name="Label" translatable="yes">---</property>
-        <property name="ShortLabel" translatable="yes">---</property>
-      </action>
       <action id="deleteAction">
         <property name="Type">Action</property>
         <property name="Label" translatable="yes" />

@@ -6,7 +6,6 @@ public partial class MainWindow
 	private global::Gtk.Action newAction;
 	private global::Gtk.Action editAction;
 	private global::Gtk.Action ArchivoAction;
-	private global::Gtk.Action Action;
 	private global::Gtk.Action deleteAction;
 	private global::Gtk.Action refreshAction;
 	private global::Gtk.VBox vbox1;
@@ -27,9 +26,6 @@ public partial class MainWindow
 		this.ArchivoAction = new global::Gtk.Action ("ArchivoAction", global::Mono.Unix.Catalog.GetString ("Archivo"), null, null);
 		this.ArchivoAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Archivo");
 		w1.Add (this.ArchivoAction, null);
-		this.Action = new global::Gtk.Action ("Action", global::Mono.Unix.Catalog.GetString ("---"), null, null);
-		this.Action.ShortLabel = global::Mono.Unix.Catalog.GetString ("---");
-		w1.Add (this.Action, null);
 		this.deleteAction = new global::Gtk.Action ("deleteAction", null, null, "gtk-delete");
 		w1.Add (this.deleteAction, null);
 		this.refreshAction = new global::Gtk.Action ("refreshAction", null, null, "gtk-refresh");

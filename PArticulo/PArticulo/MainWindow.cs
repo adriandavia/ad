@@ -9,14 +9,13 @@ using PArticulo;
 
 public partial class MainWindow: Gtk.Window
 {	
-	private IDbConnection dbConnection;
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{
 		Build ();
-		dbConnection = new MySqlConnection (
+		App.Instance.DbConnection = new MySqlConnection (
 			"Database=dbprueba;User Id=root;Password=sistemas"
 		);
-		dbConnection.Open ();
+		App.Instance.DbConnection.Open ();
 
 		fill ();
 
@@ -41,7 +40,7 @@ public partial class MainWindow: Gtk.Window
 	private void fill() {
 		List<Articulo> list = new List<Articulo>();
 		string selectSql = "select * from articulo";
-		IDbCommand dbCommand = dbConnection.CreateCommand ();
+		IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand ();
 		dbCommand.CommandText = selectSql;
 		IDataReader dataReader = dbCommand.ExecuteReader ();
 		while (dataReader.Read()) {
@@ -62,7 +61,7 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 	{
-		dbConnection.Close ();
+		App.Instance.DbConnection.Close ();
 		Application.Quit ();
 		a.RetVal = true;
 	}
