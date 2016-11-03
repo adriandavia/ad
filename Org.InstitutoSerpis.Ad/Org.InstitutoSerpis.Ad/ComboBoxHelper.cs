@@ -28,6 +28,14 @@ namespace Org.InstitutoSerpis.Ad
 				}
 			);
 		}
+
+		public static object GetId(ComboBox comboBox) {
+			TreeIter treeIter; 
+			comboBox.GetActiveIter(out treeIter);
+			object item = comboBox.Model.GetValue(treeIter, 0);
+			return item == Null.Value ? null : 
+				item.GetType ().GetProperty ("Id").GetValue (item, null);
+		}
 	}
 }
 

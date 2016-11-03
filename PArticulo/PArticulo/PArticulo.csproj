@@ -58,7 +58,7 @@
     </Reference>
     <Reference Include="Mono.Posix" />
     <Reference Include="MySql.Data">
-      <HintPath>..\..\..\..\..\usr\lib\cli\MySql.Data-6.4\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\usr\lib\cli\MySql.Data-6.4\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="Org.InstitutoSerpis.Ad">
       <HintPath>..\..\Org.InstitutoSerpis.Ad\Org.InstitutoSerpis.Ad\bin\Debug\Org.InstitutoSerpis.Ad.dll</HintPath>
@@ -81,6 +81,9 @@
     <Compile Include="gtk-gui\PArticulo.ArticuloView.cs" />
     <Compile Include="App.cs" />
     <Compile Include="DbCommandHelper.cs" />
+    <Compile Include="Categoria.cs" />
+    <Compile Include="ArticuloDao.cs" />
+    <Compile Include="CategoriaDao.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

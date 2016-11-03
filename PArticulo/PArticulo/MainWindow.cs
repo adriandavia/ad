@@ -1,7 +1,7 @@
 using Gtk;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Data;
 
 using Org.InstitutoSerpis.Ad;
@@ -34,28 +34,12 @@ public partial class MainWindow: Gtk.Window
 			fill();
 		};
 
-		new ArticuloView ();
 	}
 
 	private void fill() {
-		List<Articulo> list = new List<Articulo>();
-		string selectSql = "select * from articulo";
-		IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand ();
-		dbCommand.CommandText = selectSql;
-		IDataReader dataReader = dbCommand.ExecuteReader ();
-		while (dataReader.Read()) {
-			long id = (long)dataReader ["id"];
-			string nombre = (string)dataReader ["nombre"];
-			decimal? precio = dataReader ["precio"] is DBNull ? null : (decimal?)dataReader ["precio"];
-			long? categoria = dataReader["categoria"] is DBNull ? null : (long?)dataReader["categoria"];
-			Articulo articulo = new Articulo(id, nombre, precio, categoria);
-			list.Add (articulo);
-		}
-		dataReader.Close ();
-
 		editAction.Sensitive = false;
 		deleteAction.Sensitive = false;
-
+		IList list = ArticuloDao.GetList ();
 		TreeViewHelper.Fill (treeView, list);
 	}
 
