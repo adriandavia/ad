@@ -6,6 +6,7 @@ namespace PArticulo
 
 		public Articulo (){
 		}
+
 		public Articulo (long id, string nombre, decimal? precio, long? categoria) {
 			Id = id;
 			Nombre = nombre;

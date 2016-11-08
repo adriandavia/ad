@@ -46,8 +46,9 @@ public partial class MainWindow: Gtk.Window
 			if (response != ResponseType.Yes){
 				return;
 			}
-			else{
-				//TODO eliminar 
+			else {
+				ArticuloDao.Delete(TreeViewHelper.GetId(treeView));
+				refreshAction.Activate();
 			}
 			messageDialog.Destroy ();
 		};
