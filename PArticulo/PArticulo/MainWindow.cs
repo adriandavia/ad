@@ -35,22 +35,9 @@ public partial class MainWindow: Gtk.Window
 		};
 
 		deleteAction.Activated += delegate {
-			MessageDialog messageDialog = new MessageDialog (
-				this, 
-				DialogFlags.Modal,
-				MessageType.Question,
-				ButtonsType.YesNo,
-				"¿Quieres eliminar el registro?"
-			);
-			ResponseType response = (ResponseType)messageDialog.Run();
-			if (response != ResponseType.Yes){
-				return;
+			if (WindowHelper.Confirm(this, "¿Quieres eliminar el registro?")){
+			    ArticuloDao.Delete(TreeViewHelper.GetId(treeView));
 			}
-			else {
-				ArticuloDao.Delete(TreeViewHelper.GetId(treeView));
-				refreshAction.Activate();
-			}
-			messageDialog.Destroy ();
 		};
 	}
 

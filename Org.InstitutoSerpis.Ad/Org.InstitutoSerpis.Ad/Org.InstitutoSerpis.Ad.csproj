@@ -44,6 +44,7 @@
     <Compile Include="TreeViewHelper.cs" />
     <Compile Include="ComboBoxHelper.cs" />
     <Compile Include="Null.cs" />
+    <Compile Include="WindowHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
