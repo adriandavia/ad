@@ -1,12 +1,13 @@
-using System;
 using Gtk;
+using System;
 
-namespace Org.InstitutoSerpis.Ad{
-	public class WindowHelper{
-
-		public static bool Confirm (Window parent, string message){
-			MessageDialog messageDialog = new MessageDialog (
-				parent, 
+namespace Org.InstitutoSerpis.Ad
+{
+	public class WindowHelper
+	{
+		public static bool Confirm(Window parent, string message) {
+			MessageDialog messageDialog = new MessageDialog(
+				parent,
 				DialogFlags.Modal,
 				MessageType.Question,
 				ButtonsType.YesNo,
@@ -14,7 +15,7 @@ namespace Org.InstitutoSerpis.Ad{
 				);
 			messageDialog.Title = parent.Title;
 			ResponseType response = (ResponseType)messageDialog.Run();
-			messageDialog.Destroy ();
+			messageDialog.Destroy();
 			return response == ResponseType.Yes;
 		}
 	}

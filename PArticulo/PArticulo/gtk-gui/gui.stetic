@@ -88,7 +88,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Window" id="PArticulo.ArticuloView" design-size="431 157">
+  <widget class="Gtk.Window" id="PArticulo.ArticuloView" design-size="442 157">
     <action-group name="Default">
       <action id="saveAction">
         <property name="Type">Action</property>

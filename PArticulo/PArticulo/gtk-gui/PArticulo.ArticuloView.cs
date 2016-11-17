@@ -136,7 +136,7 @@ namespace PArticulo
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 431;
+			this.DefaultWidth = 442;
 			this.DefaultHeight = 157;
 			this.Show ();
 		}
