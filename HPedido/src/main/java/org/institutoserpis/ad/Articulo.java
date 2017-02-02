@@ -45,7 +45,7 @@ public class Articulo {
 		this.precio = precio;
 	}
 	
-	public String getString(){
+	public String toString(){
 		return String.format("%s %s %s %s", id, nombre, precio, categoria);
 	}
 	
