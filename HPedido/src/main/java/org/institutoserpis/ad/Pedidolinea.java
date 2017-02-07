@@ -2,6 +2,7 @@ package org.institutoserpis.ad;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +27,8 @@ public class Pedidolinea {
 	public void setId(long id) {
 		this.id = id;
 	}
-	@ManyToOne
+	
+	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn(name="pedido")
 	public Pedido getPedido() {
 		return pedido;
@@ -34,6 +36,7 @@ public class Pedidolinea {
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
+	
 	@ManyToOne
 	@JoinColumn(name="articulo")
 	public Articulo getArticulo() {

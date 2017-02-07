@@ -27,7 +27,7 @@ public class Pedido {
 		this.id = id;
 	}
 	
-	@ManyToOne
+	@ManyToOne 
 	@JoinColumn(name="cliente")
 	public Cliente getCliente() {
 		return cliente;

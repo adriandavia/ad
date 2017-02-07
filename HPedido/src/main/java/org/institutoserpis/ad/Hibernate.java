@@ -23,9 +23,9 @@ public class Hibernate {
 			System.out.println("------------------ MENU -------------------");
 			System.out.println("O. Salir");
 			System.out.println("1. Nuevo ...");
-			System.out.println("2. Modificar");
-			System.out.println("3. Eliminar");
-			System.out.println("4. Consultar fila");
+			System.out.println("2. Modificar ...");
+			System.out.println("3. Eliminar ...");
+			System.out.println("4. Consultar fila ...");
 			System.out.println("5. Listar ...");
 			System.out.print("Escoja una opción, por favor: ");
 			opcion = scanner.nextInt();
@@ -68,9 +68,33 @@ public class Hibernate {
 				case 3:
 					
 				case 4:
+					int opcion4 = 0;
+					do {
+						System.out.println("------------------ CONSULTAR -------------------");
+						System.out.println("O. Volver");
+						System.out.println("1. Categoria");
+						System.out.println("2. Articulo");
+						System.out.println("3. Cliente");
+						System.out.println("4. Pedido");
+						System.out.println("5. Pedido liena");
+						System.out.print("Escoja una opción, por favor: ");
+						opcion4 = scanner.nextInt();
+						System.out.println("----------------------------------------------");
+						
+						switch (opcion4) {
+						case 0:
+							break;
+
+						case 1:
+							System.out.print("Inserte ID de la categoria: ");
+							String id = scanner.next();
+							select_categoria(id);
+						}
+					} while (opcion4 != 0);
+					break;
 					
 				case 5:
-					int opcion3 = 0;
+					int opcion5 = 0;
 					do {
 						System.out.println("------------------ LISTAR -------------------");
 						System.out.println("O. Volver");
@@ -80,17 +104,17 @@ public class Hibernate {
 						System.out.println("4. Pedido");
 						System.out.println("5. Pedido liena");
 						System.out.print("Escoja una opción, por favor: ");
-						opcion3 = scanner.nextInt();
+						opcion5 = scanner.nextInt();
 						System.out.println("----------------------------------------------");
 						
-						switch (opcion3) {
+						switch (opcion5) {
 						case 0:
 							break;
 
 						case 1:
-							select_categoria();
+							select_categorias();
 						}
-					} while (opcion3 != 0);
+					} while (opcion5 != 0);
 					break;
 			}
 		} while(opcion!=0);
@@ -148,16 +172,30 @@ public class Hibernate {
 		entityManager.getTransaction().commit();
 		entityManager.close();
 	}
-	private static void select_categoria (){
-		//Insertamos Categoria
+	//Seleccionamos todas las categorias
+	private static void select_categorias (){
+		//Seleccionamos todas las categorias
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		List<Categoria> categorias = 
 				entityManager.createQuery("from Categoria", Categoria.class).getResultList();
 		for (Categoria item : categorias)
-			System.out.printf("%d %s\n", item.getId(), item.getNombre());
+			System.out.printf("%d    %s\n", item.getId(), item.getNombre());
 		entityManager.getTransaction().commit();
 		entityManager.close();
 	}
-
+	//Seleccionamos la categoria que decidamos
+	private static void select_categoria (String id){
+		//Seleccionamos una categoria en concreto 
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		try{
+			Categoria categoria = entityManager.getReference(Categoria.class, Long.parseLong(id));
+			System.out.printf("%d      %s\n", categoria.getId(), categoria.getNombre());
+		}catch (Exception e) {
+			System.out.println("El ID insertado no es correcto");
+		}	
+		entityManager.getTransaction().commit();
+		entityManager.close();
+	}
 }
