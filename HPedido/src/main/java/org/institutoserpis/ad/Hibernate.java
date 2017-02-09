@@ -22,9 +22,9 @@ public class Hibernate {
 		do{
 			System.out.println("------------------ MENU -------------------");
 			System.out.println("O. Salir");
-			System.out.println("1. Nuevo ...");
-			System.out.println("2. Modificar ...");
-			System.out.println("3. Eliminar ...");
+			System.out.println("1. Nuevo ..."); //Añadimos en todas
+			System.out.println("2. Modificar ..."); //entityManager.flush
+			System.out.println("3. Eliminar ..."); //entityManager.remove
 			System.out.println("4. Consultar fila ...");
 			System.out.println("5. Listar ...");
 			System.out.print("Escoja una opción, por favor: ");
@@ -34,11 +34,11 @@ public class Hibernate {
 			switch(opcion){
 				case 0: 
 					System.out.println("Adios.");
-					entityManagerFactory.close();
+					SQLHelper.close_EntityManagerFactory(entityManagerFactory);
 					break;
 					
 				case 1:
-					int opcion2 = 0;
+					int opcion1 = 0;
 					do {
 						System.out.println("------------------ AÑADIR -------------------");
 						System.out.println("O. Volver");
@@ -48,22 +48,77 @@ public class Hibernate {
 						System.out.println("4. Pedido");
 						System.out.println("5. Pedido liena");
 						System.out.print("Escoja una opción, por favor: ");
-						opcion2 = scanner.nextInt();
+						opcion1 = scanner.nextInt();
 						System.out.println("---------------------------------------------");
 						
-						switch (opcion2) {
+						switch (opcion1) {
 						case 0:
 							break;
 
 						case 1:
 							System.out.print("Escriba un nombre: ");
 							String nombre = scanner.next();
-							insert_categoria(nombre);
+							SQLHelper.insert_categoria(entityManagerFactory, nombre);
+							
+						case 2:
+							System.out.print("Escriba un articulo: ");
+							String nombrearticulo = scanner.next();
+							System.out.print("Escriba un precio: " );
+							String precioart = scanner.next();
+							System.out.print("Deme un ID de una Categoria: ");
+							String idcategoria = scanner.next();
+							SQLHelper.insert_articulo(entityManagerFactory, nombrearticulo, precioart, idcategoria);
+							
+						case 3:
+							System.out.print("Nombre del cliente: ");
+							String nombrecliente = scanner.next();
+							SQLHelper.insert_cliente(entityManagerFactory, nombrecliente);
+							
+						case 4:
+							System.out.print("ID del cliente: ");
+							String idcliente = scanner.next();
+							System.out.print("Precio: ");
+							String precio = scanner.next();
+							SQLHelper.insert_pedido(entityManagerFactory, idcliente, precio);
+							
+						case 5:
+							System.out.print("ID del pedido: ");
+							String pedidoid = scanner.next();
+							System.out.print("ID del articulo: ");
+							String articuloid = scanner.next();
+							System.out.print("Unidades: ");
+							String unid = scanner.next();
+							SQLHelper.insert_pedidoLinea(entityManagerFactory, pedidoid, articuloid, unid);
 						}
-					} while (opcion2 != 0);
+					} while (opcion1 != 0);
 					break;
 					
 				case 2:
+					int opcion2= 0;
+					do {
+						System.out.println("------------------ MODIFICAR -------------------");
+						System.out.println("O. Volver");
+						System.out.println("1. Categoria");
+						System.out.println("2. Articulo");
+						System.out.println("3. Cliente");
+						System.out.println("4. Pedido");
+						System.out.println("5. Pedido liena");
+						System.out.print("Escoja una opción, por favor: ");
+						opcion2 = scanner.nextInt();
+						System.out.println("----------------------------------------------");
+						
+						switch (opcion2) {
+						case 0:
+							break;
+
+						case 1:
+							System.out.print("ID de la categoria a cambiar: ");
+							String nidcateogria = scanner.next();
+							System.out.print("Nuevo nombre de la categoria: ");
+							String nncategoria = scanner.next();
+							SQLHelper.update_categoria(entityManagerFactory, nidcateogria, nncategoria);
+						}
+					} while (opcion2 != 0);
 					break;
 				case 3:
 					
@@ -88,7 +143,7 @@ public class Hibernate {
 						case 1:
 							System.out.print("Inserte ID de la categoria: ");
 							String id = scanner.next();
-							select_categoria(id);
+							SQLHelper.select_categoria(entityManagerFactory, id);
 						}
 					} while (opcion4 != 0);
 					break;
@@ -112,90 +167,11 @@ public class Hibernate {
 							break;
 
 						case 1:
-							select_categorias();
+							SQLHelper.select_categorias(entityManagerFactory);
 						}
 					} while (opcion5 != 0);
 					break;
 			}
 		} while(opcion!=0);
-		
-		//Insertamos Articulo
-		/*Categoria categoria = entityManager.getReference(Categoria.class, 2L);
-		Articulo articulo = new Articulo();
-		articulo.setNombre("BMX");
-		BigDecimal importe = new BigDecimal("120.2");
-		articulo.setPrecio(importe);
-		articulo.setCategoria(categoria);
-		entityManager.persist(articulo);*/
-		
-		//Insertamos cliente
-		/*Cliente cliente = new Cliente();
-		cliente.setNombre("Raul");
-		entityManager.persist(cliente);*/
-		
-		//Insertamos pedido
-		/*Cliente cliente = entityManager.getReference(Cliente.class, 1L);
-		
-		Pedido pedido = new Pedido();
-		pedido.setCliente(cliente);
-		java.util.Date data = new java.util.Date();
-		Date date = new Date(data.getDate());
-		pedido.setFecha(date);
-		BigDecimal importe = new BigDecimal("12.0");
-		pedido.setImporte(importe);
-		entityManager.persist(pedido);*/
-		
-		//Insertamos pedidolinea
-		/*Pedido pedido = entityManager.getReference(Pedido.class, 1L);
-		Articulo articulo = entityManager.getReference(Articulo.class, 1L);
-		
-		Pedidolinea pedidolinea = new Pedidolinea();
-		pedidolinea.setPedido(pedido);
-		pedidolinea.setArticulo(articulo);
-		BigDecimal unidades = new BigDecimal("20.0");
-		BigDecimal importe = unidades.multiply(articulo.getPrecio());
-		pedidolinea.setPrecio(articulo.getPrecio());
-		pedidolinea.setUnidades(unidades);
-		pedidolinea.setImporte(importe);
-		entityManager.persist(pedidolinea);*/
-		
-			
 	}	
-
-	private static void insert_categoria (String nombre){
-		//Insertamos Categoria
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		Categoria categoria = new Categoria();
-		categoria.setNombre(nombre);
-		entityManager.persist(categoria);
-		entityManager.getTransaction().commit();
-		entityManager.close();
-	}
-	//Seleccionamos todas las categorias
-	private static void select_categorias (){
-		//Seleccionamos todas las categorias
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		List<Categoria> categorias = 
-				entityManager.createQuery("from Categoria", Categoria.class).getResultList();
-		for (Categoria item : categorias)
-			System.out.printf("%d    %s\n", item.getId(), item.getNombre());
-		entityManager.getTransaction().commit();
-		entityManager.close();
-	}
-	//Seleccionamos la categoria que decidamos
-	private static void select_categoria (String id){
-		//Seleccionamos una categoria en concreto 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		try{
-			Categoria categoria = entityManager.getReference(Categoria.class, Long.parseLong(id));
-			System.out.printf("%d      %s\n", categoria.getId(), categoria.getNombre());
-		}catch (Exception e) {
-			System.out.println("El ID insertado no es correcto");
-		}	
-		entityManager.getTransaction().commit();
-		entityManager.close();
-	}
 }
