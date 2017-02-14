@@ -3,12 +3,17 @@ package org.institutoserpis.ad;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
+import java.util.Scanner;
 
+import javax.enterprise.inject.New;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.hibernate.engine.internal.StatisticalLoggingSessionEventListener;
+
 public class SQLHelper {
+	public static Scanner scanner = new Scanner(System.in);
 	protected static void close_EntityManagerFactory(EntityManagerFactory entityManagerFactory){
 		entityManagerFactory.close();
 	}
@@ -93,6 +98,21 @@ public class SQLHelper {
 		Categoria categoria = entityManager.getReference(Categoria.class, Long.parseLong(idcategoria));
 		categoria.setNombre(nncategoria);
 		entityManager.flush();
+		entityManager.getTransaction().commit();
+		entityManager.close();
+	}
+	protected static void delete_categoria (EntityManagerFactory entityManagerFactory, String id){
+		//Barramos categoria 
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		Categoria categoria = entityManager.getReference(Categoria.class, Long.parseLong(id));
+		System.out.print("Estas seguro que desea eliminar " + categoria.getNombre() + " (s/n).");
+		String opcion = scanner.next();
+		if (opcion.equalsIgnoreCase("s")){
+			entityManager.remove(categoria);
+		} else {
+			System.out.print("Cancelando.");
+		}
 		entityManager.getTransaction().commit();
 		entityManager.close();
 	}
